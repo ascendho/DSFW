@@ -1,0 +1,131 @@
+# C++ 编译产物
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+
+# CMake 生成的文件
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+cmake-build-*/
+build/
+Build/
+BUILD/
+
+# 可执行文件
+test_hash_table
+10___Hash_Tables
+
+# IDE 生成的文件
+## Visual Studio Code
+.vscode/
+*.code-workspace
+
+## CLion
+.idea/
+cmake-build-*/
+
+## Visual Studio
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+x64/
+x86/
+Debug/
+Release/
+
+## Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+
+## Qt Creator
+*.pro.user
+*.pro.user.*
+
+# 调试信息
+*.dSYM/
+*.pdb
+*.ilk
+
+# 测试输出
+Testing/
+CTestTestfile.cmake
+LastTest.log
+
+# 系统文件
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+## Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+## Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# 备份文件
+*.bak
+*.swp
+*.swo
+*~
+.#*
+#*#
+
+# 日志文件
+*.log
+
+# 临时文件
+*.tmp
+*.temp
+
+# 压缩文件
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# 包管理器文件
+## Conan
+conandata.txt
+conanfile.txt
+conaninfo.txt
+
+## vcpkg
+vcpkg_installed/
+
+# 性能分析文件
+*.prof
+gmon.out
+callgrind.out.*
+
+# 静态分析报告
+cppcheck-report.xml
+clang-analyzer-report/
+
+# 文档生成
+doc/
+docs/html/
+docs/latex/
+
+# 自定义忽略（项目特定）
+bin/
+lib/
+install/
