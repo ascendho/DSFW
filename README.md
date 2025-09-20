@@ -1,6 +1,10 @@
 ## 介绍
 
-![bookcover](assets/bookcover.jpeg)
+
+
+<div align="center">
+  <img src="assets/bookcover.jpeg" height="400">
+</div>
 
 这本通俗易懂且趣味十足的书籍，从数据结构的视角深入讲解计算思维 —— 而数据结构正是所有编程工作中的关键组成部分。通过示意图、伪代码与风趣的类比，你将理解数据的结构如何驱动算法运算，不仅能掌握数据结构的构建方法，更能明确它们的使用场景与方式。
 
