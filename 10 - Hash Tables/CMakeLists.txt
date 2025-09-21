@@ -28,6 +28,9 @@ set(HEADER_FILES
         include/Chaining/HashTable.hpp
         include/Chaining/Chaining.hpp
         include/Chaining/Chaining.tpp
+        include/Linear\ Probing/HashTable.hpp
+        include/Linear\ Probing/LinearProbing.hpp
+        include/Linear\ Probing/LinearProbing.tpp
         include/Hash\ Functions/StringHash.hpp
 )
 
@@ -70,6 +73,23 @@ set_target_properties(test_string_hash PROPERTIES
 
 # 添加测试到 CTest
 add_test(NAME StringHashTests COMMAND test_string_hash)
+
+# Linear Probing 测试可执行文件
+add_executable(test_linear_probing
+        test/test_linear_probing.cpp
+        ${HEADER_FILES}  # 添加头文件以便在IDE中显示
+)
+
+# 链接 Google Test
+target_link_libraries(test_linear_probing GTest::gtest GTest::gtest_main)
+
+# 设置可执行文件输出目录
+set_target_properties(test_linear_probing PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# 添加测试到 CTest
+add_test(NAME LinearProbingTests COMMAND test_linear_probing)
 
 
 # 打印配置信息
