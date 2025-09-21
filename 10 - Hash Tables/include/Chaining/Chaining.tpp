@@ -69,7 +69,6 @@ ListNode<K, V> *HashTableRemove(HashTable<K, V> &ht, const K &key) {
 }
 
 template<typename K>
-size_t HashFunction(K key, size_t size) {
-    std::hash<K> hasher;
-    return hasher(key) % size;
+size_t HashFunction(const K &key, size_t size) noexcept {
+    return std::hash<K>{}(key) % size;
 }

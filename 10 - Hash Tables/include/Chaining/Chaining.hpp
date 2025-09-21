@@ -20,7 +20,7 @@ template<typename K, typename V>
 ListNode<K, V> *HashTableRemove(HashTable<K, V> &ht, const K &key);
 
 template<typename K>
-size_t HashFunction(K key, size_t size);
+size_t HashFunction(const K &key, size_t size) noexcept;
 
 // 包含模板实现
 #include "Chaining.tpp"
