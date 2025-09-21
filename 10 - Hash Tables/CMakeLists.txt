@@ -21,16 +21,22 @@ enable_testing()
 find_package(GTest REQUIRED)
 
 # 包含目录
-include_directories(include/Chaining)
+include_directories(include)
 
 # 创建头文件列表（用于IDE显示，不参与编译）
 set(HEADER_FILES
         include/Chaining/HashTable.hpp
         include/Chaining/Chaining.hpp
         include/Chaining/Chaining.tpp
+        include/Hash\ Functions/StringHash.hpp
 )
 
-# 测试可执行文件
+# 源文件列表
+set(SOURCE_FILES
+        include/Hash\ Functions/StringHash.cpp
+)
+
+# Chaining 测试可执行文件
 add_executable(test_chaining
         test/test_chaining.cpp
         ${HEADER_FILES}  # 添加头文件以便在IDE中显示
@@ -46,6 +52,24 @@ set_target_properties(test_chaining PROPERTIES
 
 # 添加测试到 CTest
 add_test(NAME HashTableTests COMMAND test_chaining)
+
+# StringHash 测试可执行文件
+add_executable(test_string_hash
+        test/test_string_hash.cpp
+        ${SOURCE_FILES}  # 包含源文件
+        ${HEADER_FILES}  # 添加头文件以便在IDE中显示
+)
+
+# 链接 Google Test
+target_link_libraries(test_string_hash GTest::gtest GTest::gtest_main)
+
+# 设置可执行文件输出目录
+set_target_properties(test_string_hash PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+)
+
+# 添加测试到 CTest
+add_test(NAME StringHashTests COMMAND test_string_hash)
 
 
 # 打印配置信息
