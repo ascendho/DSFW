@@ -14,14 +14,20 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
 endif ()
 
+# Google Test 支持
+enable_testing()
+
+# 查找系统安装的 Google Test
+find_package(GTest REQUIRED)
+
 # 包含目录
-include_directories(src/Chaining)
+include_directories(include/Chaining)
 
 # 创建头文件列表（用于IDE显示，不参与编译）
 set(HEADER_FILES
-        src/Chaining/HashTable.hpp
-        src/Chaining/Chaining.hpp
-        src/Chaining/Chaining.tpp
+        include/Chaining/HashTable.hpp
+        include/Chaining/Chaining.hpp
+        include/Chaining/Chaining.tpp
 )
 
 # 测试可执行文件
@@ -30,10 +36,16 @@ add_executable(test_chaining
         ${HEADER_FILES}  # 添加头文件以便在IDE中显示
 )
 
+# 链接 Google Test
+target_link_libraries(test_chaining GTest::gtest GTest::gtest_main)
+
 # 设置可执行文件输出目录
 set_target_properties(test_chaining PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
 )
+
+# 添加测试到 CTest
+add_test(NAME HashTableTests COMMAND test_chaining)
 
 
 # 打印配置信息

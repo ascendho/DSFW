@@ -8,7 +8,6 @@
 
 #pragma once
 #include "HashTable.hpp"
-#include <functional>
 
 // 函数声明
 template<typename K, typename V>

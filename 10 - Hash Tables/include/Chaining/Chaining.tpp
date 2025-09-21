@@ -1,5 +1,4 @@
-#ifndef SRC_CHAINING_TPP
-#define SRC_CHAINING_TPP
+#pragma once
 
 template<typename K, typename V>
 void HashTableInsert(HashTable<K, V> &ht, const K &key, const V &value) {
@@ -74,5 +73,3 @@ size_t HashFunction(K key, size_t size) {
     std::hash<K> hasher;
     return hasher(key) % size;
 }
-
-#endif

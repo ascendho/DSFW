@@ -1,5 +1,4 @@
-#ifndef INC_10_HASH_TABLE_HASHTABLE_HPP
-#define INC_10____HASH_TABLE_HASHTABLE_HPP
+#pragma once
 
 #include <vector>
 
@@ -8,6 +7,7 @@ struct ListNode {
     K key;
     V value;
     ListNode *next;
+
 
     [[nodiscard]] ListNode(const K &key, const V &value)
         : key(key),
@@ -37,5 +37,3 @@ public:
 };
 
 // using keyword
-
-#endif
