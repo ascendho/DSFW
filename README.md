@@ -33,8 +33,8 @@
 ```cmake
 $ mkdir build
 $ cd build
-$ cmake ..      					 // 调用CMake工具，去上级目录寻找CMakeLists.txt文件
-$ make -j8      					 // 调用Make工具来执行编译，-j表示并行，8表示最多使用8个CPU核心
+$ cmake ..      		   // 调用CMake工具，去上级目录寻找CMakeLists.txt文件
+$ make -j8      		   // 调用Make工具来执行编译，-j表示并行，8表示最多使用8个CPU核心
 $ ./bin/test_chaining      // 运行测试用例
 $ ctest --verbose          // 运行CTest
 ```
