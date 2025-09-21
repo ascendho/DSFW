@@ -9,7 +9,9 @@ struct ListNode {
     V value;
     ListNode *next;
 
-    ListNode(K key, V value) : key(key), value(value), next(nullptr) {
+    [[nodiscard]] ListNode(const K &key, const V &value)
+        : key(key),
+          value(value), next(nullptr) {
     }
 };
 

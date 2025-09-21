@@ -1,4 +1,4 @@
-#include "../src/Chaining.hpp"
+#include "../src/Chaining/Chaining.hpp"
 #include <iostream>
 #include <string>
 
@@ -9,14 +9,14 @@ int main() {
     HashTableInsert(ht, string("banana"), 2);
     HashTableInsert(ht, string("cherry"), 3);
 
-    auto node = HashTableLookUp(ht, string("banana"));
+    auto node = HashTableLookup(ht, string("banana"));
     if (node && node->value == 2)
         std::cout << "Test 1 passed: banana found" << std::endl;
     else
         std::cout << "Test 1 failed" << std::endl;
 
     HashTableInsert(ht, string("banana"), 5);
-    node = HashTableLookUp(ht, string("banana"));
+    node = HashTableLookup(ht, string("banana"));
     if (node && node->value == 5)
         std::cout << "Test 2 passed: banana updated" << std::endl;
     else
@@ -29,14 +29,14 @@ int main() {
     } else
         std::cout << "Test 3 failed" << std::endl;
 
-    node = HashTableLookUp(ht, string("banana"));
+    node = HashTableLookup(ht, string("banana"));
     if (!node)
         std::cout << "Test 4 passed: banana not found after removal" << std::endl;
     else
         std::cout << "Test 4 failed" << std::endl;
 
     // 边界测试：查找不存在的键
-    node = HashTableLookUp(ht, string("not_exist"));
+    node = HashTableLookup(ht, string("not_exist"));
     if (!node)
         std::cout << "Test 5 passed: not_exist not found" << std::endl;
     else
@@ -52,7 +52,7 @@ int main() {
     // 测试 int 类型键
     HashTable<int, string> ht2(10);
     HashTableInsert(ht2, 42, string("answer"));
-    auto node2 = HashTableLookUp(ht2, 42);
+    auto node2 = HashTableLookup(ht2, 42);
     if (node2 && node2->value == "answer")
         std::cout << "Test 7 passed: int key found" << std::endl;
     else
@@ -60,7 +60,7 @@ int main() {
 
     // 测试覆盖插入
     HashTableInsert(ht2, 42, string("new_answer"));
-    node2 = HashTableLookUp(ht2, 42);
+    node2 = HashTableLookup(ht2, 42);
     if (node2 && node2->value == "new_answer")
         std::cout << "Test 8 passed: int key updated" << std::endl;
     else
@@ -74,7 +74,7 @@ int main() {
     } else
         std::cout << "Test 9 failed" << std::endl;
 
-    node2 = HashTableLookUp(ht2, 42);
+    node2 = HashTableLookup(ht2, 42);
     if (!node2)
         std::cout << "Test 10 passed: int key not found after removal" << std::endl;
     else
