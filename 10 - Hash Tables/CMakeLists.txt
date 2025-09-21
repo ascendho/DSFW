@@ -33,7 +33,7 @@ set(HEADER_FILES
 
 # 源文件列表
 set(SOURCE_FILES
-        include/Hash\ Functions/StringHash.cpp
+        src/Hash\ Functions/StringHash.cpp
 )
 
 # Chaining 测试可执行文件

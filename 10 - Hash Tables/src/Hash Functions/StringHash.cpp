@@ -1,4 +1,4 @@
-#include "StringHash.hpp"
+#include "Hash Functions/StringHash.hpp"
 
 size_t StringHash(const std::string &key, size_t size) noexcept {
     size_t total = 0;
