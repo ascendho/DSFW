@@ -25,7 +25,7 @@ void HashTableInsert(HashTable<K, V> &ht, const K &key, const V &value) {
 }
 
 template<typename K, typename V>
-ListNode<K, V> *HashTableLookup(HashTable<K, V> &ht, const K &key) {
+ListNode<K, V> *HashTableLookup(const HashTable<K, V> &ht, const K &key) {
     size_t hash_value = HashFunction(key, ht.size);
     if (ht.bins[hash_value] == nullptr)
         return nullptr;

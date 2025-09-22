@@ -31,7 +31,7 @@ bool HashTableInsert(HashTable<K, V> &ht, const K &key, const V &value) {
 }
 
 template<typename K, typename V>
-V HashTableLookup(HashTable<K, V> &ht, const K &key) {
+V HashTableLookup(const HashTable<K, V> &ht, const K &key) {
     size_t index = HashFunction(key, ht.size);
     size_t count = 0;
 
