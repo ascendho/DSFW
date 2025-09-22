@@ -31,7 +31,7 @@ bool HashTableInsert(HashTable<K, V> &ht, const K &key, const V &value) {
 }
 
 template<typename K, typename V>
-V HashTableLookup(const HashTable<K, V> &ht, const K &key) {
+std::optional<V> HashTableLookup(const HashTable<K, V> &ht, const K &key) {
     size_t index = HashFunction(key, ht.size);
     size_t count = 0;
 
@@ -48,8 +48,12 @@ V HashTableLookup(const HashTable<K, V> &ht, const K &key) {
     if (current != nullptr && current->key == key)
         return current->value;
 
-    // 伪代码中返回null，这里返回默认值
-    return V{};
+    /* std::nullopt 是一个"空"的 optional，表示没有值
+       可以用 if (result == std::nullopt)、if (result.has_value()) 或者 if (!result)
+       来检查是否找到值
+       可通过 result.value() 获取实际值（前提是确认它存在）
+    */ 
+    return std::nullopt;
 }
 
 template<typename K>

@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <string>
 #include <vector>
+#include <optional>
 #include "Linear Probing/LinearProbing.hpp"
 
 // =====================================================
@@ -27,7 +28,7 @@ TEST_F(LinearProbingTest, BasicInsertAndLookup) {
     
     // 测试插入和查找
     EXPECT_TRUE(HashTableInsert(ht, std::string("apple"), 1));
-    EXPECT_EQ(HashTableLookup(ht, std::string("apple")), 1);
+    EXPECT_EQ(HashTableLookup(ht, std::string("apple")).value(), 1);
     EXPECT_EQ(ht.num_keys, 1);
     
     // 测试插入多个元素
@@ -36,9 +37,9 @@ TEST_F(LinearProbingTest, BasicInsertAndLookup) {
     EXPECT_EQ(ht.num_keys, 3);
     
     // 验证所有元素都能正确查找
-    EXPECT_EQ(HashTableLookup(ht, std::string("apple")), 1);
-    EXPECT_EQ(HashTableLookup(ht, std::string("banana")), 2);
-    EXPECT_EQ(HashTableLookup(ht, std::string("cherry")), 3);
+    EXPECT_EQ(HashTableLookup(ht, std::string("apple")).value(), 1);
+    EXPECT_EQ(HashTableLookup(ht, std::string("banana")).value(), 2);
+    EXPECT_EQ(HashTableLookup(ht, std::string("cherry")).value(), 3);
 }
 
 TEST_F(LinearProbingTest, UpdateExistingKey) {
@@ -46,25 +47,25 @@ TEST_F(LinearProbingTest, UpdateExistingKey) {
     
     // 插入初始值
     EXPECT_TRUE(HashTableInsert(ht, std::string("key1"), 100));
-    EXPECT_EQ(HashTableLookup(ht, std::string("key1")), 100);
+    EXPECT_EQ(HashTableLookup(ht, std::string("key1")).value(), 100);
     EXPECT_EQ(ht.num_keys, 1);
     
     // 更新相同键的值
     EXPECT_TRUE(HashTableInsert(ht, std::string("key1"), 200));
-    EXPECT_EQ(HashTableLookup(ht, std::string("key1")), 200);
+    EXPECT_EQ(HashTableLookup(ht, std::string("key1")).value(), 200);
     EXPECT_EQ(ht.num_keys, 1); // 键数量不应增加
 }
 
 TEST_F(LinearProbingTest, LookupNonExistentKey) {
     HashTable<std::string, int> ht(5);
     
-    // 查找不存在的键应返回默认值
-    EXPECT_EQ(HashTableLookup(ht, std::string("nonexistent")), 0);
+    // 查找不存在的键应返回std::nullopt
+    EXPECT_FALSE(HashTableLookup(ht, std::string("nonexistent")).has_value());
     
     // 插入一些元素后再测试
     HashTableInsert(ht, std::string("exists"), 42);
-    EXPECT_EQ(HashTableLookup(ht, std::string("exists")), 42);
-    EXPECT_EQ(HashTableLookup(ht, std::string("stillnonexistent")), 0);
+    EXPECT_EQ(HashTableLookup(ht, std::string("exists")).value(), 42);
+    EXPECT_FALSE(HashTableLookup(ht, std::string("stillnonexistent")).has_value());
 }
 
 // =====================================================
@@ -81,9 +82,9 @@ TEST_F(LinearProbingTest, CollisionHandling) {
     EXPECT_TRUE(HashTableInsert(ht, 6, std::string("six")));    // hash % 3 = 0, 会碰撞
     
     // 验证所有值都能正确存储和检索
-    EXPECT_EQ(HashTableLookup(ht, 0), std::string("zero"));
-    EXPECT_EQ(HashTableLookup(ht, 3), std::string("three"));
-    EXPECT_EQ(HashTableLookup(ht, 6), std::string("six"));
+    EXPECT_EQ(HashTableLookup(ht, 0).value(), std::string("zero"));
+    EXPECT_EQ(HashTableLookup(ht, 3).value(), std::string("three"));
+    EXPECT_EQ(HashTableLookup(ht, 6).value(), std::string("six"));
     EXPECT_EQ(ht.num_keys, 3);
 }
 
@@ -97,9 +98,9 @@ TEST_F(LinearProbingTest, LinearProbingSequence) {
     EXPECT_TRUE(HashTableInsert(ht, 10, 300)); // 索引 0,1 被占用，探测到索引 2
     
     // 验证查找
-    EXPECT_EQ(HashTableLookup(ht, 0), 100);
-    EXPECT_EQ(HashTableLookup(ht, 5), 200);
-    EXPECT_EQ(HashTableLookup(ht, 10), 300);
+    EXPECT_EQ(HashTableLookup(ht, 0).value(), 100);
+    EXPECT_EQ(HashTableLookup(ht, 5).value(), 200);
+    EXPECT_EQ(HashTableLookup(ht, 10).value(), 300);
 }
 
 // =====================================================
@@ -133,8 +134,8 @@ TEST_F(LinearProbingTest, WrapAroundProbing) {
     EXPECT_TRUE(HashTableInsert(ht, 3, std::string("three")));  // 索引 3
     EXPECT_TRUE(HashTableInsert(ht, 7, std::string("seven")));  // 索引 3 被占用，环绕到索引 0
     
-    EXPECT_EQ(HashTableLookup(ht, 3), std::string("three"));
-    EXPECT_EQ(HashTableLookup(ht, 7), std::string("seven"));
+    EXPECT_EQ(HashTableLookup(ht, 3).value(), std::string("three"));
+    EXPECT_EQ(HashTableLookup(ht, 7).value(), std::string("seven"));
 }
 
 // =====================================================
@@ -148,10 +149,10 @@ TEST_F(LinearProbingTest, IntegerKeys) {
     EXPECT_TRUE(HashTableInsert(ht, -5, 2.71));
     EXPECT_TRUE(HashTableInsert(ht, 0, 1.41));
     
-    EXPECT_DOUBLE_EQ(HashTableLookup(ht, 42), 3.14);
-    EXPECT_DOUBLE_EQ(HashTableLookup(ht, -5), 2.71);
-    EXPECT_DOUBLE_EQ(HashTableLookup(ht, 0), 1.41);
-    EXPECT_DOUBLE_EQ(HashTableLookup(ht, 999), 0.0); // 不存在的键
+    EXPECT_DOUBLE_EQ(HashTableLookup(ht, 42).value(), 3.14);
+    EXPECT_DOUBLE_EQ(HashTableLookup(ht, -5).value(), 2.71);
+    EXPECT_DOUBLE_EQ(HashTableLookup(ht, 0).value(), 1.41);
+    EXPECT_FALSE(HashTableLookup(ht, 999).has_value()); // 不存在的键
 }
 
 TEST_F(LinearProbingTest, StringKeys) {
@@ -161,10 +162,10 @@ TEST_F(LinearProbingTest, StringKeys) {
     EXPECT_TRUE(HashTableInsert(ht, std::string("city"), std::string("Boston")));
     EXPECT_TRUE(HashTableInsert(ht, std::string("country"), std::string("USA")));
     
-    EXPECT_EQ(HashTableLookup(ht, std::string("name")), std::string("Alice"));
-    EXPECT_EQ(HashTableLookup(ht, std::string("city")), std::string("Boston"));
-    EXPECT_EQ(HashTableLookup(ht, std::string("country")), std::string("USA"));
-    EXPECT_EQ(HashTableLookup(ht, std::string("unknown")), std::string("")); // 空字符串
+    EXPECT_EQ(HashTableLookup(ht, std::string("name")).value(), std::string("Alice"));
+    EXPECT_EQ(HashTableLookup(ht, std::string("city")).value(), std::string("Boston"));
+    EXPECT_EQ(HashTableLookup(ht, std::string("country")).value(), std::string("USA"));
+    EXPECT_FALSE(HashTableLookup(ht, std::string("unknown")).has_value()); // 不存在的键
 }
 
 // =====================================================
@@ -182,7 +183,7 @@ TEST_F(LinearProbingTest, StressTest) {
     
     // 验证所有元素
     for (int i = 0; i < 50; ++i) {
-        EXPECT_EQ(HashTableLookup(ht, i), i * 2);
+        EXPECT_EQ(HashTableLookup(ht, i).value(), i * 2);
     }
     
     // 更新一些元素
@@ -193,10 +194,10 @@ TEST_F(LinearProbingTest, StressTest) {
     
     // 验证更新的元素
     for (int i = 0; i < 25; ++i) {
-        EXPECT_EQ(HashTableLookup(ht, i), i * 3);
+        EXPECT_EQ(HashTableLookup(ht, i).value(), i * 3);
     }
     for (int i = 25; i < 50; ++i) {
-        EXPECT_EQ(HashTableLookup(ht, i), i * 2);
+        EXPECT_EQ(HashTableLookup(ht, i).value(), i * 2);
     }
 }
 
@@ -262,9 +263,9 @@ TEST_F(LinearProbingTest, MemoryManagement) {
         HashTableInsert(ht, std::string("key3"), 3);
         
         // 验证元素存在
-        EXPECT_EQ(HashTableLookup(ht, std::string("key1")), 1);
-        EXPECT_EQ(HashTableLookup(ht, std::string("key2")), 2);
-        EXPECT_EQ(HashTableLookup(ht, std::string("key3")), 3);
+        EXPECT_EQ(HashTableLookup(ht, std::string("key1")).value(), 1);
+        EXPECT_EQ(HashTableLookup(ht, std::string("key2")).value(), 2);
+        EXPECT_EQ(HashTableLookup(ht, std::string("key3")).value(), 3);
         
         // ht在这里会被自动析构，应该正确清理内存
     }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.16)
 project(10___Hash_Tables)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -46,7 +46,7 @@ add_executable(test_chaining
 )
 
 # 链接 Google Test
-target_link_libraries(test_chaining GTest::gtest GTest::gtest_main)
+target_link_libraries(test_chaining GTest::gtest_main)
 
 # 设置可执行文件输出目录
 set_target_properties(test_chaining PROPERTIES
@@ -64,7 +64,7 @@ add_executable(test_string_hash
 )
 
 # 链接 Google Test
-target_link_libraries(test_string_hash GTest::gtest GTest::gtest_main)
+target_link_libraries(test_string_hash GTest::gtest_main)
 
 # 设置可执行文件输出目录
 set_target_properties(test_string_hash PROPERTIES
@@ -81,7 +81,7 @@ add_executable(test_linear_probing
 )
 
 # 链接 Google Test
-target_link_libraries(test_linear_probing GTest::gtest GTest::gtest_main)
+target_link_libraries(test_linear_probing GTest::gtest_main)
 
 # 设置可执行文件输出目录
 set_target_properties(test_linear_probing PROPERTIES
