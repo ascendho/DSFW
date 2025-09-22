@@ -15,6 +15,7 @@ struct HashTableEntry {
 template<typename K, typename V>
 class HashTable {
 public:
+    // 公共接口成员 - 需要被外部函数访问
     size_t size;
     size_t num_keys;
     std::vector<HashTableEntry<K, V> *> bins;
