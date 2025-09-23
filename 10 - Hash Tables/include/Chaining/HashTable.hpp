@@ -9,7 +9,7 @@ struct ListNode {
     ListNode *next;
 
 
-    [[nodiscard]] ListNode(const K &key, const V &value)
+    ListNode(const K &key, const V &value)
         : key(key),
           value(value), next(nullptr) {
     }
@@ -23,6 +23,11 @@ public:
 
     explicit HashTable(size_t table_size) : size(table_size), bins(table_size, nullptr) {
     }
+
+    // 禁用拷贝，防止浅拷贝导致 double free
+    HashTable(const HashTable &) = delete;
+
+    HashTable &operator=(const HashTable &) = delete;
 
     // 析构函数：清理所有链表节点
     ~HashTable() {

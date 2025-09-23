@@ -27,6 +27,11 @@ public:
         : size(initial_size), num_keys(0), bins(initial_size, nullptr) {
     }
 
+    // 禁用拷贝，防止浅拷贝导致 double free
+    HashTable(const HashTable &) = delete;
+
+    HashTable &operator=(const HashTable &) = delete;
+
     // 析构函数：清理内存
     ~HashTable() {
         for (auto *entry: bins) {
