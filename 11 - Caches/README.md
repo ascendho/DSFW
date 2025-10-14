@@ -19,3 +19,17 @@ LRU 缓存，全称 **Least Recently Used（最近最少使用）缓存**，是�
 ## 协同工作
 
 哈希表与双向链表通过指针关联，形成“快速查找 + 时序追踪”的闭环，实现协同工作。当访问某个 Key 时，哈希表先通过 Key 快速定位到对应项，再通过哈希表项中的链表节点指针找到该 Key 在双向链表中的位置，最后将该节点移动到双向链表的**尾部**（标记为“最近使用”，避免被误淘汰）。而当缓存已满需淘汰数据时，会直接删除双向链表的**头部节点**（即“最少最近使用”的数据），并**同步**通过节点中的 Key 从哈希表中移除对应项，为新数据腾出空间。这种“哈希表 + 双向链表”的组合，让 LRU 缓存同时具备“快速查找效率”和“按访问时序淘汰的能力”，是平衡缓存速度与容量的经典设计。
+
+## 引用
+
+```tex
+{
+  author = "Jeremy Kubica",
+  year = "2022",
+  booktitle = "Data Structures the Fun Way: An Amusing Adventure with Coffee-Filled Examples",
+  chapter = "11",
+  chapter_title = "Caches",
+  publisher = "No Starch Press"
+}
+```
+
